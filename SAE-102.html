@@ -37,22 +37,43 @@
         <header style="text-align: center; margin-bottom: 50px;">
             <span class="tag">Détail Projet</span>
             <h1 style="font-size: 2.5rem; font-weight: 700; margin-top: 15px;">S’initier aux réseaux informatiques</h1>
-            <p style="color:var(--text-secondary);">Date : MM/AAAA | Rôle : Technicien</p>
+            <p style="color:var(--text-secondary);">Date : 12/2025 </p>
         </header>
 
         <section class="content-block">
             <h2>🎯 Contexte et Objectifs</h2>
-            [cite_start]<p>Décris ici l'entreprise fictive, la demande du client et les enjeux principaux du projet.
-                C'est l'introduction de ta mise en situation professionnelle[cite: 116].</p>
+            <p style="margin-top: 10px;">Dans le cadre de l'entreprise fictive "Fibre&Company", j'ai dû concevoir un prototype de réseau
+                informatique pour répondre à l'augmentation des effectifs et aux besoins de sécurité. L'objectif
+                principal était de mettre en place une infrastructure complète comprenant des équipements
+                d'interconnexion paramétrables et un serveur de services sous Debian. Pour ma part, je devais garantir
+                le déploiement d'une machine virtuelle stable, configurer des services réseaux essentiels (Web, DNS,
+                SMB) et assurer la sécurité des accès et des données utilisateurs.</p>
         </section>
 
         <section class="content-block">
             <h2>🛠 Apprentissages & Réalisations</h2>
             <ul style="margin-left: 20px; margin-bottom: 20px;">
-                <li style="margin-bottom: 10px;"><strong>AC XX.XX :</strong> Intitulé de l'apprentissage critique.</li>
-                <li><strong>AC XX.XX :</strong> Intitulé de l'apprentissage critique.</li>
+                <li style="margin-top: 20px;"><strong>AC 11.02 :</strong> Installer les postes clients et les
+                    équipements de réseau.</li>
+                <li><strong>AC 11.05 :</strong> S’intégrer dans un environnement professionnel.</li>
             </ul>
-            <p>Liste ici tes actions concrètes (configuration, câblage, scripting...).</p>
+            <p><li>Installation système : Déploiement d'une machine virtuelle Debian 13 en ligne de commande (sans interface
+                graphique) sur un serveur Proxmox.
+
+                <li>Gestion du stockage : Configuration de 4 disques durs avec un partitionnement spécifique pour séparer le
+                système, les données utilisateurs (/home) et les sauvegardes.
+
+                <li>Administration utilisateurs : Création automatisée de comptes via la commande newusers et génération de
+                mots de passe sécurisés avec pwgen.
+
+                <li>Configuration de services : Mise en œuvre d'un serveur Web (Apache2), d'un partage de fichiers (SMB) et
+                d'un cache DNS (Bind9).
+
+                <li>Sécurisation des accès : Configuration d'un accès distant SSH sécurisé par une paire de clés
+                publique/privée.
+
+                <li>Sauvegarde : Mise en place d'un système de sauvegarde incrémentale du disque de données vers un disque
+                dédié.</p>
         </section>
 
         <section class="content-block">
@@ -67,13 +88,11 @@
                     <p style="color: var(--text-secondary);">[Lien vers PDF ou Code]</p>
                 </div>
             </div>
-            [cite_start]<p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary);">Ces traces
-                prouvent la maîtrise des compétences citées plus haut[cite: 70].</p>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary);"></p>
         </section>
 
         <section class="content-block">
             <h2>🧠 Analyse Réflexive</h2>
-            [cite_start]<p>Retour critique sur ma progression et les obstacles surmontés[cite: 142].</p>
 
             <div style="overflow-x: auto;">
                 <table class="custom-table">
@@ -86,21 +105,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Exemple : Problème de connectivité inter-VLAN.</td>
-                            <td>Relecture de la table de routage et utilisation de traceroute.</td>
-                            <td>Méthodologie de dépannage (Troubleshooting).</td>
-                        </tr>
-                        <tr>
-                            <td>Exemple : Gestion du temps difficile.</td>
-                            <td>Mise en place d'un planning partagé.</td>
-                            <td>Organisation et travail d'équipe.</td>
+                            <td>Création d'un grand nombre d'utilisateurs manuellement.</td>
+                            <td>Utilisation de la commande newusers pour automatiser la création à partir d'une liste.</td>
+                            <td>Automatisation des tâches administratives (gain de temps et fiabilité).</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <h3 style="margin-top: 30px; font-size: 1.2rem;">Positionnement</h3>
-            <p>Je pense avoir validé le niveau 1 de la compétence car...</p>
+            <p style="margin-top: 10px;">Je pense avoir validé le niveau 1 de la compétence car j'ai été capable d'installer et de configurer de manière autonome un serveur Debian 13 répondant à un cahier des charges professionnel précis. J'ai su mettre en place des services réseaux essentiels (DNS, SMB, Web) et assurer la sécurité des accès via SSH par clés. Ce travail, réalisé en équipe, m'a permis de comprendre l'interaction entre les services serveurs et l'infrastructure réseau (switchs/routeurs).</p>
         </section>
 
     </main>
