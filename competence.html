@@ -6,6 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bilan Compétences - Antonin</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles spécifiques pour les jauges de compétences */
+        .skill-gauge {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 50px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1); /* Couleur vide (gris/transparent) */
+            border: 1px solid rgba(0, 0, 0, 0.438);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: var(--accent-color); /* Utilise ton bleu défini dans style.css */
+            box-shadow: 0 0 2px var(--accent-color);
+            border-color: transparent;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,7 +45,7 @@
             <li><a href="index.html">Accueil</a></li>
             <li><a href="sae.html">Mes Projets</a></li>
             <li><a href="competence.html">Compétences</a></li>
-            <li><a href="contact.html">A propos</a></li>
+            <li><a href="contact.html">À propos</a></li>
             <li>
                 <div id="theme-switch" class="glass-switch" title="Changer de thème">
                     <div class="switch-icons"><span> </span><span> </span></div>
@@ -48,11 +71,17 @@
             <p>---</p>
 
             <h3 style="margin-top: 20px;">Points à améliorer</h3>
-            <p>---
-            </p>
+            <p>---</p>
 
             <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-                <strong>Auto-évaluation :</strong> <span style="color: var(--accent-color);">---</span>
+                <strong>Auto-évaluation :</strong>
+                <div class="skill-gauge">
+                    <div class="dot active"></div>
+                    <div class="dot active"></div>
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
             </div>
         </section>
 
@@ -68,7 +97,14 @@
             <p>---</p>
 
             <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-                <strong>Auto-évaluation :</strong> <span style="color: Orange;">---</span>
+                <strong>Auto-évaluation :</strong>
+                <div class="skill-gauge">
+                    <div class="dot active"></div>
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
             </div>
         </section>
 
@@ -81,7 +117,14 @@
             <p>---</p>
 
             <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-                <strong>Auto-évaluation :</strong> <span style="color: var(--accent-color);">---</span>
+                <strong>Auto-évaluation :</strong>
+                <div class="skill-gauge">
+                    <div class="dot active"></div>
+                    <div class="dot active"></div>
+                    <div class="dot active"></div>
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                </div>
             </div>
         </section>
 
