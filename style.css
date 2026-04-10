@@ -1,0 +1,458 @@
+:root {
+    /* Mode Clair */
+    --bg-body: #F5F5F7;
+    /* On passe à 0.6 pour voir le contenu passer derrière */
+    --bg-card: rgba(255, 255, 255, 0.65);
+    /* Nav plus transparente (0.6) pour l'effet de flou */
+    --bg-nav: rgba(255, 255, 255, 0.6);
+
+    --text-main: #1D1D1F;
+    --text-secondary: #86868B;
+    --accent-color: #0071E3;
+    --border-color: rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+    --radius-card: 24px;
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+[data-theme="dark"] {
+    /* Mode Sombre */
+    --bg-body: #000000;
+    --bg-card: rgba(28, 28, 30, 0.6);
+    /* Nav sombre transparente */
+    --bg-nav: rgba(28, 28, 30, 0.6);
+
+    --text-main: #F5F5F7;
+    --text-secondary: #98989D;
+    --accent-color: #2997FF;
+    --border-color: rgba(255, 255, 255, 0.15);
+    --shadow-card: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .top-blur-mask {
+    background: linear-gradient(to bottom,
+            var(--bg-body) 0%,
+            rgba(0, 0, 0, 0) 100%);
+}
+
+/* --- RESET & BASE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
+    padding-top: 150px;
+    /* Espace pour la nav flottante */
+}
+
+.top-blur-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    /* La hauteur de la zone de flou */
+    z-index: 900;
+    /* Au-dessus du contenu, mais SOUS la navbar (qui est à 1000) */
+    pointer-events: none;
+    /* Très important : permet de cliquer au travers */
+
+    /* 1. L'effet de flou progressif */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    /* 2. Le fondu vers la couleur de fond (simule la perte d'opacité) */
+    background: linear-gradient(to bottom,
+            var(--bg-body) 0%,
+            /* En haut : couleur du fond opaque (contenu invisible) */
+            rgba(255, 255, 255, 0) 100%
+            /* En bas : transparent (contenu visible) */
+        );
+
+    /* 3. Masque pour adoucir la transition du flou */
+    mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-main);
+    transition: 0.2s;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+/* --- NAVIGATION FLOTTANTE (Dynamic Island) --- */
+.navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 900px;
+    background: var(--bg-nav);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-radius: 100px;
+    padding: 0 25px;
+    height: 65px;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav-links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.7;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    opacity: 1;
+    color: var(--accent-color);
+}
+
+/* --- SWITCH LIQUID GLASS (Theme) --- */
+.glass-switch {
+    width: 56px;
+    height: 30px;
+    background: rgba(120, 120, 128, 0.2);
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.switch-icons {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 12px;
+    pointer-events: none;
+}
+
+.switch-knob {
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    /* MODIFICATION ICI : Animation simple et fluide (Ease) */
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .glass-switch {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .switch-knob {
+    transform: translateX(24px);
+    background: var(--accent-color);
+}
+
+/* --- HERO & TITRES --- */
+.hero {
+    text-align: center;
+    padding: 60px 0 80px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, var(--text-main) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+.btn {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4);
+}
+
+/* --- GRID BENTO (SAE) --- */
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: -1px;
+}
+
+.sae-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.sae-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.sae-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: var(--shadow-card);
+}
+
+.tag {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    background: rgba(0, 113, 227, 0.1);
+    padding: 5px 12px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.sae-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.sae-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.btn-small {
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+/* --- PAGES DÉTAIL & TABLEAU --- */
+.content-block {
+    background: var(--bg-card);
+    padding: 35px;
+    border-radius: var(--radius-card);
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 0.95rem;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.custom-table th {
+    background-color: rgba(120, 120, 120, 0.1);
+    font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .navbar {
+        padding: 0 15px;
+    }
+
+    .nav-links a {
+        display: none;
+    }
+
+    /* Cache les liens textes sur mobile */
+    .nav-links .glass-switch {
+        display: flex;
+    }
+
+    /* Garde le switch */
+    /* Ajouter icone menu burger ici si besoin */
+}
+
+/* --- MENU BURGER (Mobile) --- */
+.burger-menu {
+    display: none;
+    /* Caché sur PC */
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+
+    position: relative;
+    z-index: 2001;
+    /* Supérieur à la navbar (1000) et au masque (900) */
+    width: 30px;
+    /* Donne une zone de clic explicite */
+    height: 30px;
+    justify-content: center;
+    /* Centre les barres */
+}
+
+.burger-menu span {
+    width: 25px;
+    height: 2px;
+    background-color: var(--text-main);
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* À ajouter à la fin de style.css */
+
+/* Quand le menu est ouvert (classe ajoutée par le JS) */
+.burger-menu.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.burger-menu.open span:nth-child(2) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+
+/* --- RESPONSIVE : TABLETTES & MOBILES --- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 20px;
+    }
+
+    /* Affiche le burger */
+    .burger-menu {
+        display: flex;
+    }
+
+    /* LE MENU DÉROULANT */
+    .nav-links {
+        /* Positionnement */
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+
+        /* --- LE FLOU FORCÉ --- */
+        /* Fond blanc translucide (0.7 = 70% visible) */
+        background-color: rgba(255, 255, 255, 1) !important;
+
+        /* Le moteur de flou (valeur élevée pour bien voir l'effet) */
+        -webkit-backdrop-filter: blur(30px) !important;
+        /* Pour Safari/Chrome */
+        backdrop-filter: blur(30px) !important;
+        /* Standard */
+
+        /* Ombre pour détacher le menu du fond */
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+        /* Style du bloc */
+        padding: 30px;
+        border-radius: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+        /* Caché par défaut */
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        z-index: 2000;
+    }
+
+    /* VERSION DARK MODE */
+    [data-theme="dark"] .nav-links {
+        /* Noir translucide */
+        background-color: rgba(20, 20, 20, 1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* QUAND C'EST OUVERT */
+    .nav-links.mobile-visible {
+        display: flex;
+    }
+
+    .nav-links a {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+}
