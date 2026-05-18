@@ -309,6 +309,10 @@ ul {
     border-radius: var(--radius-card);
     margin-bottom: 30px;
     border: 1px solid var(--border-color);
+    
+    /* AJOUT DE L'OMBRE ICI */
+    box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.15); 
+    transition: box-shadow 0.3s ease;
 }
 
 .custom-table {
