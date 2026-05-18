@@ -1,0 +1,412 @@
+================================================================
+SAE12 - S'initier aux reseaux informatiques
+Configuration complete - Fibre&Company
+2025-2026
+================================================================
+
+
+================================================================
+1. VLANS + ROUTAGE INTER-VLAN (SWR-1 - Catalyst 3560)
+================================================================
+
+SWR-1# configure terminal
+
+! --- Creation des VLANs ---
+vlan 200
+ name Services_Logiciels
+vlan 210
+ name Comptabilite
+vlan 220
+ name Administratif
+vlan 230
+ name Vente
+vlan 240
+ name Supervision
+vlan 250
+ name Admin_Informatique
+vlan 696
+ name UNUSED_NATIVE
+
+! --- Activation du routage IP ---
+ip routing
+
+! --- SVIs (interfaces virtuelles pour routage inter-VLAN) ---
+interface vlan 200
+ description Services_Logiciels
+ ip address 192.168.200.1 255.255.255.0
+ no shutdown
+interface vlan 210
+ description Comptabilite
+ ip address 192.168.210.1 255.255.255.0
+ no shutdown
+interface vlan 220
+ description Administratif
+ ip address 192.168.220.1 255.255.255.0
+ no shutdown
+interface vlan 230
+ description Vente
+ ip address 192.168.230.1 255.255.255.0
+ no shutdown
+interface vlan 240
+ description Supervision
+ ip address 192.168.240.1 255.255.255.0
+ no shutdown
+interface vlan 250
+ description Admin_Informatique
+ ip address 192.168.250.1 255.255.255.0
+ no shutdown
+
+! --- Lien L3 vers R1 (/30) ---
+interface GigabitEthernet0/1
+ description Lien_L3_vers_R1
+ no switchport
+ ip address 10.0.0.2 255.255.255.252
+ no shutdown
+
+! --- Route par defaut vers R1 ---
+ip route 0.0.0.0 0.0.0.0 10.0.0.1
+
+end
+write memory
+
+
+================================================================
+2. STP / ETHERCHANNEL (SWR-1)
+================================================================
+
+SWR-1# configure terminal
+
+! --- Rapid-PVST+ : SWR-1 force root bridge ---
+spanning-tree mode rapid-pvst
+spanning-tree vlan 200,210,220,230,240,250,696 root primary
+
+! --- PortFast + BPDU Guard sur ports d'acces ---
+interface range GigabitEthernet0/3 - 24
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+
+! --- EtherChannel LACP vers SW1 (2 liens Gb) ---
+interface range GigabitEthernet1/0 - 1
+ description LAG_vers_SW1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 1 mode active
+
+interface Port-channel1
+ description LAG_SWR1-SW1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 696
+ switchport trunk allowed vlan 200,210,220,230,240,250
+
+! --- EtherChannel LACP vers SW2 (2 liens Gb) ---
+interface range GigabitEthernet2/0 - 1
+ description LAG_vers_SW2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 2 mode active
+
+interface Port-channel2
+ description LAG_SWR1-SW2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 696
+ switchport trunk allowed vlan 200,210,220,230,240,250
+
+! --- SW1 / SW2 cote oppose : mode passive ---
+! channel-group 1 mode passive
+
+end
+write memory
+
+! --- Verifications ---
+show spanning-tree vlan 200
+show etherchannel summary
+
+
+================================================================
+3. DHCP (SWR-1)
+================================================================
+
+SWR-1# configure terminal
+
+! --- Exclusion des adresses reservees ---
+ip dhcp excluded-address 192.168.210.1 192.168.210.10
+ip dhcp excluded-address 192.168.220.1 192.168.220.10
+ip dhcp excluded-address 192.168.230.1 192.168.230.10
+ip dhcp excluded-address 192.168.240.1 192.168.240.10
+ip dhcp excluded-address 192.168.250.1 192.168.250.10
+
+! Note : pas de pool DHCP sur VLAN 200 (serveurs en IP statique)
+
+ip dhcp pool VLAN210_Comptabilite
+ network 192.168.210.0 255.255.255.0
+ default-router 192.168.210.1
+ dns-server 192.168.200.10
+ lease 1
+
+ip dhcp pool VLAN220_Administratif
+ network 192.168.220.0 255.255.255.0
+ default-router 192.168.220.1
+ dns-server 192.168.200.10
+ lease 1
+
+ip dhcp pool VLAN230_Vente
+ network 192.168.230.0 255.255.255.0
+ default-router 192.168.230.1
+ dns-server 192.168.200.10
+ lease 1
+
+ip dhcp pool VLAN240_Supervision
+ network 192.168.240.0 255.255.255.0
+ default-router 192.168.240.1
+ dns-server 192.168.200.10
+ lease 1
+
+ip dhcp pool VLAN250_Admin_Info
+ network 192.168.250.0 255.255.255.0
+ default-router 192.168.250.1
+ dns-server 192.168.200.10
+ lease 1
+
+end
+write memory
+
+! --- Verifications ---
+show ip dhcp pool
+show ip dhcp binding
+
+
+================================================================
+4. ROUTEUR R1 (Cisco 2911)
+================================================================
+
+R1# configure terminal
+
+hostname R1
+ip domain-name fibre-company.local
+
+! --- Interface vers SWR-1 (/30) ---
+interface GigabitEthernet0/0
+ description Lien_vers_SWR1
+ ip address 10.0.0.1 255.255.255.252
+ no shutdown
+
+! --- Interface vers la Box ---
+interface GigabitEthernet0/1
+ description Lien_vers_Box
+ ip address dhcp
+ no shutdown
+
+! --- Routes statiques vers les VLANs (via SWR-1) ---
+ip route 192.168.200.0 255.255.255.0 10.0.0.2
+ip route 192.168.210.0 255.255.255.0 10.0.0.2
+ip route 192.168.220.0 255.255.255.0 10.0.0.2
+ip route 192.168.230.0 255.255.255.0 10.0.0.2
+ip route 192.168.240.0 255.255.255.0 10.0.0.2
+ip route 192.168.250.0 255.255.255.0 10.0.0.2
+! --- Route par defaut vers la Box ---
+ip route 0.0.0.0 0.0.0.0 [IP_GATEWAY_BOX]
+
+! --- Desactiver HTTP et Telnet ---
+no ip http server
+no ip http secure-server
+line vty 0 4
+ transport input ssh
+
+end
+write memory
+
+! --- Verifications ---
+show ip route
+
+
+================================================================
+5. SECURITE - SW1 et SW2 (Catalyst 2960X)
+================================================================
+
+SW1# configure terminal
+
+! --- Port Security (anti-remplissage table CAM) => Initiaux ---
+interface range FastEthernet0/1 - 24
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+
+! --- Storm Control (anti-broadcast storm) => Initiaux ---
+interface range FastEthernet0/1 - 24
+ storm-control broadcast level 20
+ storm-control action shutdown
+
+! --- Ports non utilises => VLAN 696 + shutdown ---
+interface range FastEthernet0/25 - 48
+ description PORT_INUTILISE
+ switchport access vlan 696
+ switchport mode access
+ shutdown
+
+! --- Desactiver HTTP et Telnet ---
+no ip http server
+no ip http secure-server
+line vty 0 15
+ transport input ssh
+
+end
+write memory
+
+! --- Verifications ---
+show port-security interface FastEthernet0/1
+show storm-control
+show interfaces status
+
+
+================================================================
+6. SSH - Tous les equipements (SWR-1, SW1, SW2, R1)
+================================================================
+
+[equipement]# configure terminal
+
+! --- Prerequis ---
+hostname [NOM_EQUIPEMENT]
+ip domain-name fibre-company.local
+
+! --- Cle RSA 2048 bits (recommandation ANSSI) ---
+crypto key generate rsa modulus 2048
+
+! --- SSH v2 uniquement ---
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+
+! --- Compte local ---
+username admin privilege 15 secret MotDePasseF0rt!
+
+! --- VTY : SSH uniquement ---
+line vty 0 4
+ login local
+ transport input ssh
+ exec-timeout 5 0
+
+line console 0
+ login local
+ exec-timeout 5 0
+
+end
+write memory
+
+! --- Verifications ---
+show ip ssh
+show ssh
+
+
+================================================================
+7. SSH CLES PUBLIQUE/PRIVEE - Serveur Debian => Initiaux
+================================================================
+
+# --- Sur la station d'administration ---
+user@admin:~$ ssh-keygen -t ed25519 -C "admin@fibre-company"
+# Ed25519 recommande ANSSI (ou RSA 4096 minimum)
+# Proteger la cle privee avec une passphrase
+
+# --- Copier la cle publique sur le serveur ---
+user@admin:~$ ssh-copy-id -i ~/.ssh/id_ed25519.pub admin@192.168.200.10
+
+# --- Durcissement sshd_config sur Debian ---
+root@debian:~# nano /etc/ssh/sshd_config
+
+Protocol 2
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+AllowUsers admin
+# Algos recommandes ANSSI uniquement :
+KexAlgorithms curve25519-sha256,diffie-hellman-group14-sha256
+Ciphers aes256-gcm@openssh.com,chacha20-poly1305@openssh.com
+MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com
+
+root@debian:~# systemctl restart ssh
+root@debian:~# ssh -V
+
+
+================================================================
+8. SERVICES DEBIAN 13
+================================================================
+
+# --- Installation ---
+root@debian:~# apt update && apt install -y \
+  bind9 bind9utils \
+  samba \
+  apache2 \
+  tftpd-hpa \
+  pwgen \
+  iperf3
+
+# --- Bind9 DNS cache ---
+# /etc/bind/named.conf.options
+options {
+    directory "/var/cache/bind";
+    forwarders { [IP_BOX]; };
+    recursion yes;
+    allow-query { 192.168.0.0/16; };
+    listen-on { 192.168.200.10; };
+};
+
+root@debian:~# systemctl enable bind9 && systemctl restart bind9
+root@debian:~# dig @192.168.200.10 google.com
+
+# --- Comptes utilisateurs (newusers + pwgen, pas de boucle useradd) ---
+root@debian:~# pwgen -s -y 10 [nb_users] > /tmp/passwords.txt
+# Construire /tmp/users.txt au format : login:mdp:UID:GID:commentaire:home:shell
+# - 5 premiers  => Admin_Informatique (shell /bin/bash)
+# - 5 suivants  => Administratif (shell /bin/false)
+# - reste       => repartis equitablement (shell /bin/false)
+root@debian:~# newusers /tmp/users.txt
+
+# --- SMB ---
+# /etc/samba/smb.conf
+[global]
+  workgroup = FIBRECOMPANY
+  interfaces = 192.168.200.0/24
+  bind interfaces only = yes
+
+[partage_public]
+  path = /srv/samba/public
+  read only = yes
+  guest ok = yes
+
+[partage_depot]   ; => Initiaux
+  path = /srv/samba/depot
+  valid users = @administratif @admin_informatique
+  writable = yes
+  create mask = 0660
+
+# --- Apache2 ---
+root@debian:~# cp -r /chemin/mon_site /var/www/html/
+root@debian:~# systemctl enable apache2 && systemctl restart apache2
+
+# --- TFTP => Initiaux ---
+# /etc/default/tftpd-hpa
+TFTP_USERNAME="tftp"
+TFTP_DIRECTORY="/srv/tftp"
+TFTP_ADDRESS="192.168.200.10:69"
+TFTP_OPTIONS="--secure"
+
+root@debian:~# systemctl enable tftpd-hpa && systemctl restart tftpd-hpa
+# Sauvegarder config depuis un switch :
+# SW1# copy running-config tftp://192.168.200.10/SW1-running.cfg
+
+# --- Sauvegarde XFS incrementale (disque 3 /home -> disque 4 /BackupHome) ---
+root@debian:~# apt install -y xfsdump
+# Niveau 0 (complete)
+root@debian:~# xfsdump -l 0 -f /BackupHome/backup_l0.dump /home
+# Niveau 1 (incrementale)
+root@debian:~# xfsdump -l 1 -f /BackupHome/backup_l1.dump /home
+root@debian:~# xfsdump -I
+
+
+================================================================
+FIN DE LA CONFIGURATION
+================================================================
