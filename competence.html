@@ -2,6 +2,20 @@
 <html lang="fr">
 
 <head>
+    <script>
+        // Anti-flash : applique le thème sauvegardé AVANT le rendu de la page
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (t) document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {}
+            // Désactive les transitions le temps du chargement initial
+            document.documentElement.classList.add('no-transition');
+            window.addEventListener('load', function () {
+                document.documentElement.classList.remove('no-transition');
+            });
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bilan Compétences - Antonin</title>
@@ -68,10 +82,19 @@
             <p style="margin-bottom: 20px;"><strong>Niveau 1 :</strong> Assister l'administrateur du réseau.</p>
 
             <h3>Ce que je maîtrise</h3>
-            <p>---</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li style="margin-bottom: 8px;">Installation et configuration d'un serveur Debian 13 en ligne de commande (sans interface graphique) sur Proxmox.</li>
+                <li style="margin-bottom: 8px;">Déploiement de services réseau essentiels : DNS (Bind9), partage de fichiers (Samba/SMB) et serveur Web (Apache2).</li>
+                <li style="margin-bottom: 8px;">Configuration d'équipements Cisco : VLANs, routage inter-VLAN, DHCP, EtherChannel (LACP) et spanning-tree.</li>
+                <li style="margin-bottom: 8px;">Sécurisation des accès : SSH par clés publique/privée, durcissement <em>sshd_config</em> et application des bonnes pratiques de l'ANSSI.</li>
+                <li>Automatisation de l'administration : création de comptes en masse (<em>newusers</em>, <em>pwgen</em>) et sauvegardes incrémentales.</li>
+            </ul>
 
             <h3 style="margin-top: 20px;">Points à améliorer</h3>
-            <p>---</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li style="margin-bottom: 8px;">Approfondir le dépannage avancé (troubleshooting) des problèmes de connectivité inter-VLAN.</li>
+                <li>Gagner en autonomie sur la supervision réseau et la lecture des logs en conditions réelles.</li>
+            </ul>
 
             <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
                 <strong>Auto-évaluation :</strong>
@@ -91,10 +114,18 @@
             <p style="margin-bottom: 20px;"><strong>Niveau 1 :</strong> Découvrir les transmissions et la ToIP.</p>
 
             <h3>Ce que je maîtrise</h3>
-            <p>---</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li style="margin-bottom: 8px;">Caractérisation des supports physiques de transmission : câble cuivre (coaxial, Ethernet) et fibre optique.</li>
+                <li style="margin-bottom: 8px;">Utilisation d'appareils de mesure professionnels : analyseur DTF (réflectométrie), oscilloscope, GBF et photomètre.</li>
+                <li style="margin-bottom: 8px;">Localisation de défauts et calcul de longueur d'un câble à partir de la vitesse de propagation (NVP).</li>
+                <li>Mesure d'atténuation par photométrie sur une liaison FTTH (1550 nm) et interprétation d'un bilan optique.</li>
+            </ul>
 
             <h3 style="margin-top: 20px;">Points à améliorer</h3>
-            <p>---</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li style="margin-bottom: 8px;">Affiner l'interprétation des signaux complexes à l'oscilloscope en régime impulsionnel.</li>
+                <li>Découvrir la téléphonie sur IP (ToIP) et les technologies de transmission sans fil, non encore abordées.</li>
+            </ul>
 
             <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
                 <strong>Auto-évaluation :</strong>
@@ -114,7 +145,19 @@
             <p style="margin-bottom: 20px;"><strong>Niveau 1 :</strong> S'intégrer dans un service informatique.</p>
 
             <h3>Ce que je maîtrise</h3>
-            <p>---</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li style="margin-bottom: 8px;">Développement web : sites multipages en HTML5 sémantique et CSS (Flexbox, Grid), responsive et accessibles (WCAG 2.0 AA).</li>
+                <li style="margin-bottom: 8px;">Scripting Python : interrogation d'API REST (OpenStreetMap, Overpass) et traitement de données au format JSON.</li>
+                <li style="margin-bottom: 8px;">Conception d'algorithmes de calcul statistique et génération automatisée de documents (Markdown, HTML).</li>
+                <li style="margin-bottom: 8px;">Gestion de version avec Git et déploiement en ligne via GitHub Pages.</li>
+                <li>Rédaction de code structuré, commenté et documenté, et gestion des cas d'erreur (données manquantes).</li>
+            </ul>
+
+            <h3 style="margin-top: 20px;">Points à améliorer</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li style="margin-bottom: 8px;">Approfondir JavaScript pour rendre les interfaces web plus dynamiques.</li>
+                <li>Structurer des projets Python plus conséquents (modules, tests, gestion des dépendances).</li>
+            </ul>
 
             <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
                 <strong>Auto-évaluation :</strong>
@@ -127,6 +170,10 @@
                 </div>
             </div>
         </section>
+
+        <div class="back-projects-wrapper">
+            <a href="index.html" class="btn-back-projects">&#8592; Revenir à l'accueil</a>
+        </div>
 
     </main>
 

@@ -7,11 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const htmlElement = document.documentElement;
 
     // 1. THÈME SOMBRE / CLAIR
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        htmlElement.setAttribute('data-theme', savedTheme);
-    }
-
+    // (Le thème sauvegardé est déjà appliqué dans le <head> pour éviter le flash)
     if (themeSwitch) {
         themeSwitch.addEventListener('click', () => {
             const currentTheme = htmlElement.getAttribute('data-theme');

@@ -2,6 +2,20 @@
 <html lang="fr">
 
 <head>
+    <script>
+        // Anti-flash : applique le thème sauvegardé AVANT le rendu de la page
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (t) document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {}
+            // Désactive les transitions le temps du chargement initial
+            document.documentElement.classList.add('no-transition');
+            window.addEventListener('load', function () {
+                document.documentElement.classList.remove('no-transition');
+            });
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact & À propos - Antonin</title>
@@ -111,6 +125,10 @@
                 </li>
             </ul>
         </section>
+        <div class="back-projects-wrapper">
+            <a href="index.html" class="btn-back-projects">&#8592; Revenir à l'accueil</a>
+        </div>
+
     </main>
 
     <script src="script.js"></script>
