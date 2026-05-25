@@ -69,13 +69,25 @@
         <section class="content-block">
             <h2>📂 Preuves et Traces</h2>
             <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-                <div
-                    style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.05); padding: 40px; border-radius: 12px; text-align: center;">
-                    <p style="color: var(--text-secondary);"><a href="InfoLocalesCaen.html" target="_blank">📃 Voir le résultat HTML du code python pour la ville de Caen.</a></p>
+                <div class="proof-item">
+                    <div class="proof-card" style="min-height: 200px;">
+                        <img class="proof-card-preview" src="preview_infolocales_html.png" alt="Aperçu InfoLocales HTML">
+                        <div class="proof-card-overlay">
+                            <span class="proof-card-label">Résultat HTML — InfoLocales Caen</span>
+                            <a href="InfoLocalesCaen.html" target="_blank" class="btn-proof">Accéder à la preuve ↗</a>
+                        </div>
+                    </div>
+                    <p class="proof-caption">La fiche de synthèse générée automatiquement par le script : statistiques sur les poubelles de Caen (ratio habitants/poubelle) et liste géolocalisée des points trouvés.</p>
                 </div>
-                <div
-                    style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.05); padding: 40px; border-radius: 12px; text-align: center;">
-                    <p style="color: var(--text-secondary);"><a href="info_locales.txt" target="_blank">📃 Voir le code python du projet.</a></p>
+                <div class="proof-item">
+                    <div class="proof-card" style="min-height: 200px;">
+                        <img class="proof-card-preview" src="preview_python.png" alt="Aperçu code Python">
+                        <div class="proof-card-overlay">
+                            <span class="proof-card-label">Code source Python du projet</span>
+                            <a href="info_locales.txt" target="_blank" class="btn-proof">Accéder à la preuve ↗</a>
+                        </div>
+                    </div>
+                    <p class="proof-caption">Le code Python commenté qui interroge les API OpenStreetMap et Overpass, traite les données JSON et génère les rapports aux formats Markdown puis HTML.</p>
                 </div>
             </div>
         </section>
@@ -116,6 +128,10 @@
             <h3 style="margin-top: 30px; font-size: 1.2rem;">Positionnement</h3>
             <p style="margin-top: 20px;">Je pense avoir validé le niveau 1 de la compétence car j'ai réussi à développer un script Python fonctionnel capable de communiquer avec des API externes pour récupérer et traiter des données réelles. J'ai su concevoir des algorithmes de calcul statistique et automatiser la création de fiches de synthèse lisibles aux formats Markdown et HTML. Enfin, j'ai surmonté les contraintes techniques du projet en autonomie tout en produisant un code structuré et documenté.</p>
         </section>
+
+        <div class="back-projects-wrapper">
+            <a href="sae.html" class="btn-back-projects">&#8592; Revenir aux projets</a>
+        </div>
 
     </main>
 

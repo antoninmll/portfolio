@@ -45,12 +45,20 @@
 
             <div style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap; margin-top: 25px;">
 
-                <div style="width: 180px; height: 180px; border-radius: 50%; 
-            background: linear-gradient(135deg, var(--accent-color), #5AC8FA); 
-            box-shadow: var(--shadow-card); border: 1px solid var(--border-color);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3rem; color: white; font-weight: 700;">
-                    AM
+                <div style="flex-shrink: 0;">
+                    <img id="profile-photo" src="IMG_2684.jpg" alt="Antonin Millet"
+                        style="width: 180px; height: 180px; border-radius: 50%; 
+                        object-fit: cover;
+                        box-shadow: var(--shadow-card); border: 3px solid var(--border-color);"
+                        onerror="this.style.display='none'; document.getElementById('profile-fallback').style.display='flex';">
+                    <div id="profile-fallback"
+                        style="display: none; width: 180px; height: 180px; border-radius: 50%; 
+                        background: linear-gradient(135deg, var(--accent-color), #5AC8FA); 
+                        box-shadow: var(--shadow-card); border: 1px solid var(--border-color);
+                        align-items: center; justify-content: center;
+                        font-size: 3rem; color: white; font-weight: 700;">
+                        AM
+                    </div>
                 </div>
 
                 <div style="flex: 1; min-width: 280px;">

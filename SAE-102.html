@@ -79,13 +79,25 @@
         <section class="content-block">
             <h2>📂 Preuves et Traces</h2>
             <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-                <div
-                    style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.05); padding: 40px; border-radius: 12px; text-align: center;">
-                    <p style="color: var(--text-secondary);"><a href="SAE12_config_complete.txt" target="_blank">📄 Voir le fichier de configuration complet.</a></p>
+                <div class="proof-item">
+                    <div class="proof-card" style="min-height: 200px;">
+                        <img class="proof-card-preview" src="preview_config_reseau.png" alt="Aperçu configuration réseau">
+                        <div class="proof-card-overlay">
+                            <span class="proof-card-label">Configuration complète réseau</span>
+                            <a href="SAE12_config_complete.txt" target="_blank" class="btn-proof">Accéder à la preuve ↗</a>
+                        </div>
+                    </div>
+                    <p class="proof-caption">Le fichier de configuration Cisco complet : création des VLANs, routage inter-VLAN, EtherChannel (LACP), DHCP, sécurité des ports et durcissement SSH des équipements.</p>
                 </div>
-                <div
-                    style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.05); padding: 40px; border-radius: 12px; text-align: center;">
-                    <p style="color: var(--text-secondary);"><a href="schéma_logique.jpg" target="_blank">🖼️ Voir le schéma logique du projet.</a></p>
+                <div class="proof-item">
+                    <div class="proof-card" style="min-height: 200px;">
+                        <img class="proof-card-preview" src="schéma_logique.jpg" alt="Schéma logique">
+                        <div class="proof-card-overlay">
+                            <span class="proof-card-label">Schéma logique du projet</span>
+                            <a href="schéma_logique.jpg" target="_blank" class="btn-proof">Accéder à la preuve ↗</a>
+                        </div>
+                    </div>
+                    <p class="proof-caption">Le schéma logique de l'infrastructure : adressage IP, plan de VLANs et interconnexion des équipements (box, routeur, switchs et serveur Proxmox).</p>
                 </div>
             </div>
             <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary);"></p>
@@ -116,6 +128,10 @@
             <h3 style="margin-top: 30px; font-size: 1.2rem;">Positionnement</h3>
             <p style="margin-top: 10px;">Je pense avoir validé le niveau 1 de la compétence car j'ai été capable d'installer et de configurer de manière autonome un serveur Debian 13 répondant à un cahier des charges professionnel précis. J'ai su mettre en place des services réseaux essentiels (DNS, SMB, Web) et assurer la sécurité des accès via SSH par clés. Ce travail, réalisé en équipe, m'a permis de comprendre l'interaction entre les services serveurs et l'infrastructure réseau (switchs/routeurs).</p>
         </section>
+
+        <div class="back-projects-wrapper">
+            <a href="sae.html" class="btn-back-projects">&#8592; Revenir aux projets</a>
+        </div>
 
     </main>
 

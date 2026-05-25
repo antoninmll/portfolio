@@ -319,6 +319,40 @@ ul {
     margin-top: auto;
 }
 
+/* --- BADGE "À VENIR" (SAE non réalisées) --- */
+.badge-soon {
+    align-self: flex-start;
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #D70015;
+    background: rgba(215, 0, 21, 0.1);
+    border: 1px solid rgba(215, 0, 21, 0.3);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 8px 16px;
+    border-radius: 50px;
+    cursor: not-allowed;
+    user-select: none;
+}
+
+[data-theme="dark"] .badge-soon {
+    color: #FF6961;
+    background: rgba(255, 105, 97, 0.12);
+    border-color: rgba(255, 105, 97, 0.3);
+}
+
+/* Carte d'un projet à venir : légèrement estompée */
+.sae-card.coming-soon {
+    opacity: 0.75;
+}
+
+.sae-card.coming-soon:hover {
+    transform: translateY(-8px) scale(1.01);
+    opacity: 1;
+}
+
 /* --- PAGES DÉTAIL & TABLEAU --- */
 .content-block {
     background: var(--bg-card);
@@ -351,6 +385,158 @@ ul {
 .custom-table th {
     background-color: rgba(120, 120, 120, 0.1);
     font-weight: 600;
+}
+
+/* --- BOUTON RETOUR PROJETS --- */
+.btn-back-projects {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    background-color: transparent;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-back-projects:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4);
+}
+
+.back-projects-wrapper {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px 0 10px;
+}
+
+/* --- CARTES PREUVES AVEC APERÇU FLOU --- */
+.proof-card {
+    flex: 1;
+    min-width: 250px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.proof-card-preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(4px) brightness(0.7);
+    transform: scale(1.05);
+    transition: filter 0.3s ease;
+}
+
+.proof-card-overlay {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.proof-card-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+}
+
+.btn-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #000000;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+}
+
+.btn-proof:hover {
+    background-color: #222222;
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+[data-theme="dark"] .btn-proof {
+    background-color: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+[data-theme="dark"] .btn-proof:hover {
+    background-color: rgba(255,255,255,0.25);
+}
+
+/* Conteneur d'une preuve : carte + légende */
+.proof-item {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.proof-item .proof-card,
+.proof-item .proof-card-empty {
+    width: 100%;
+}
+
+.proof-caption {
+    margin-top: 12px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 0 4px;
+}
+
+/* Proof card sans aperçu (placeholder) */
+.proof-card-empty {
+    flex: 1;
+    min-width: 250px;
+    border-radius: 16px;
+    background: rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+}
+
+.proof-card-empty p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
 /* Mobile */
