@@ -8,7 +8,7 @@
 ## 🚀 Présentation
 Ce portfolio a été conçu dans le cadre de mon cursus en **BUT Réseaux & Télécoms**. Il sert de vitrine pour présenter mon parcours, mes certifications et les travaux pratiques réalisés (en réseaux, administration système et développement).
 
-* **🌐 Voir le site :** https://antoninmll.github.io/portfolio/
+* **🌐 Voir le site :** <a href="https://antoninmll.github.io/portfolio/" target="_blank" rel="noopener noreferrer">https://antoninmll.github.io/portfolio/</a>
 * **👤 Auteur :** Antonin Millet
 
 ---
