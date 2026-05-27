@@ -67,9 +67,18 @@
         <section class="content-block">
             <h2>🛠 Apprentissages & Réalisations</h2>
             <ul style="margin-left: 20px; margin-bottom: 20px;">
-                <li style="margin-top: 20px;"><strong>AC 11.02 :</strong> Installer les postes clients et les
-                    équipements de réseau.</li>
-                <li><strong>AC 11.05 :</strong> S’intégrer dans un environnement professionnel.</li>
+                <li style="margin-top: 20px;"><strong>AC 11.02 — Comprendre l'architecture et les fondements des systèmes numériques, les principes du codage de l'information, des communications et de l'Internet.</strong><br>
+                    Cet AC m'apporte la vision d'ensemble : comprendre comment box, routeur, switchs et serveur communiquent entre eux avant même de toucher à une configuration. C'est ce qui permet de concevoir une architecture cohérente plutôt que d'empiler des équipements.<br>
+                    <em>Preuve mobilisée :</em> le schéma logique de l'infrastructure (adressage IP, plan de VLANs, interconnexion des équipements) matérialise cette compréhension de l'architecture réseau dans son ensemble.</li>
+                <li style="margin-top: 12px;"><strong>AC 11.03 — Configurer les fonctions de base du réseau local.</strong><br>
+                    C'est le cœur technique du projet : il m'apporte la capacité de segmenter et faire fonctionner un réseau réel (VLANs, routage inter-VLAN, DHCP, agrégation de liens).<br>
+                    <em>Preuve mobilisée :</em> le fichier de configuration Cisco complet, où chaque bloc correspond à un choix justifié — segmenter par VLAN pour la sécurité, agréger les liens par LACP pour la disponibilité.</li>
+                <li style="margin-top: 12px;"><strong>AC 11.04 — Maîtriser les rôles et les principes fondamentaux des systèmes d'exploitation afin d'interagir avec ceux-ci pour la configuration et l'administration des réseaux et services fournis.</strong><br>
+                    Cet AC m'apporte l'autonomie côté serveur : installer et administrer un Debian en ligne de commande, y déployer des services (Web, DNS, SMB) et sécuriser ses accès.<br>
+                    <em>Preuve mobilisée :</em> le durcissement SSH par clés présent dans la configuration ci-dessous, qui réinvestit directement les bonnes pratiques de la SAÉ 1.01, prouve cette maîtrise de l'administration système.</li>
+                <li style="margin-top: 12px;"><strong>AC 11.06 — Installer un poste client, expliquer la procédure mise en place.</strong><br>
+                    Cet AC m'apporte la rigueur de la documentation : un déploiement n'est abouti que s'il peut être compris et reproduit par un tiers.<br>
+                    <em>Preuve mobilisée :</em> le schéma logique sert de procédure de référence partagée, qui a permis à toute l'équipe de déployer et raccorder les postes sur la même base, sans contradiction.</li>
             </ul>
             <p><li>Installation système : Déploiement d'une machine virtuelle Debian 13 en ligne de commande (sans interface
                 graphique) sur un serveur Proxmox.
@@ -94,7 +103,7 @@
             <h2>📂 Preuves et Traces</h2>
             <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
                 <div class="proof-item">
-                    <div class="proof-card" style="min-height: 200px;">
+                    <div class="proof-card">
                         <img class="proof-card-preview" src="preview_config_reseau.png" alt="Aperçu configuration réseau">
                         <div class="proof-card-overlay">
                             <span class="proof-card-label">Configuration complète réseau</span>
@@ -104,7 +113,7 @@
                     <p class="proof-caption">Le fichier de configuration Cisco complet : création des VLANs, routage inter-VLAN, EtherChannel (LACP), DHCP, sécurité des ports et durcissement SSH des équipements.</p>
                 </div>
                 <div class="proof-item">
-                    <div class="proof-card" style="min-height: 200px;">
+                    <div class="proof-card">
                         <img class="proof-card-preview" src="schéma_logique.jpg" alt="Schéma logique">
                         <div class="proof-card-overlay">
                             <span class="proof-card-label">Schéma logique du projet</span>
@@ -132,7 +141,7 @@
                     <tbody>
                         <tr>
                             <td>Création d'un grand nombre d'utilisateurs manuellement.</td>
-                            <td>Utilisation de la commande newusers pour automatiser la création à partir d'une liste.</td>
+                            <td>Utilisation de la commande newusers pour automatiser la création à partir d'une liste. <em style="color: var(--accent-color);">(Cf. preuve : Configuration complète réseau)</em></td>
                             <td>Automatisation des tâches administratives (gain de temps et fiabilité).</td>
                         </tr>
                     </tbody>

@@ -63,9 +63,18 @@
         <section class="content-block">
             <h2>🛠 Apprentissages & Réalisations</h2>
             <ul style="margin-left: 20px; margin-bottom: 20px;">
-                <li style="margin-top: 20px;"><strong>AC 11.03 :</strong> Programmer des applications simples.</li>
-                <li><strong>AC 11.05 :</strong> Traiter des données.
-                </li>
+                <li style="margin-top: 20px;"><strong>AC 13.01 — Utiliser un système informatique et ses outils.</strong><br>
+                    Cet AC m'apporte l'aisance avec l'environnement de développement Python : interpréteur, bibliothèques externes (requests, markdown) et manipulation de fichiers.<br>
+                    <em>Preuve mobilisée :</em> le code source Python, qui orchestre l'appel aux API, le traitement des données et la génération automatisée des fichiers de sortie.</li>
+                <li style="margin-top: 12px;"><strong>AC 13.02 — Lire, exécuter, corriger et modifier un programme.</strong><br>
+                    Cet AC m'apporte la robustesse : anticiper les cas réels et corriger un programme pour qu'il ne plante pas face à l'imprévu.<br>
+                    <em>Preuve mobilisée :</em> dans le code, les conditions de vérification gérant les données manquantes (un lieu sans horaire ou sans site web) montrent que je traite le cas réel et pas seulement le cas idéal.</li>
+                <li style="margin-top: 12px;"><strong>AC 13.03 — Traduire un algorithme, dans un langage et pour un environnement donné.</strong><br>
+                    Cet AC m'apporte la capacité de transformer un besoin (« calculer un ratio habitants/poubelle ») en algorithme fonctionnel, avec des fonctions modulaires.<br>
+                    <em>Preuve mobilisée :</em> la fiche HTML générée automatiquement, dont le ratio habitants/poubelle — absent des données brutes — est entièrement calculé par mon algorithme.</li>
+                <li style="margin-top: 12px;"><strong>AC 13.05 — Choisir les mécanismes de gestion de données adaptés au développement de l'outil et argumenter ses choix.</strong><br>
+                    Cet AC m'apporte la chaîne complète du traitement de données : de la donnée brute (JSON d'une API) à l'information utile et lisible.<br>
+                    <em>Preuve mobilisée :</em> le code interroge les API OpenStreetMap / Overpass, filtre les dictionnaires JSON imbriqués et restitue le résultat en Markdown puis en HTML — un choix de formats justifié par la lisibilité du livrable final.</li>
             </ul>
             <p>
                 <li>Requêtes API : Utilisation des API REST d'OpenStreetMap et d'Overpass en Python pour télécharger des fichiers de données au format JSON.
@@ -84,7 +93,7 @@
             <h2>📂 Preuves et Traces</h2>
             <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
                 <div class="proof-item">
-                    <div class="proof-card" style="min-height: 200px;">
+                    <div class="proof-card">
                         <img class="proof-card-preview" src="preview_infolocales_html.png" alt="Aperçu InfoLocales HTML">
                         <div class="proof-card-overlay">
                             <span class="proof-card-label">Résultat HTML — InfoLocales Caen</span>
@@ -94,7 +103,7 @@
                     <p class="proof-caption">La fiche de synthèse générée automatiquement par le script : statistiques sur les poubelles de Caen (ratio habitants/poubelle) et liste géolocalisée des points trouvés.</p>
                 </div>
                 <div class="proof-item">
-                    <div class="proof-card" style="min-height: 200px;">
+                    <div class="proof-card">
                         <img class="proof-card-preview" src="preview_python.png" alt="Aperçu code Python">
                         <div class="proof-card-overlay">
                             <span class="proof-card-label">Code source Python du projet</span>
@@ -122,17 +131,17 @@
                     <tbody>
                         <tr>
                             <td>Manipuler et extraire les bonnes informations des gros fichiers JSON reçus des API.</td>
-                            <td>Analyse minutieuse de la structure des dictionnaires et des clés imbriquées en Python. </td>
+                            <td>Analyse minutieuse de la structure des dictionnaires et des clés imbriquées en Python. <em style="color: var(--accent-color);">(Cf. preuve : Code source Python du projet)</em></td>
                             <td>Manipulation et filtrage de données complexes (structures de données).</td>
                         </tr>
                         <tr>
                             <td>Gérer les données manquantes sur OpenStreetMap (certains lieux n'ont pas d'horaires ou de site web).</td>
-                            <td>Utilisation de conditions de vérification (if) pour éviter que le script ne plante si une information manque.</td>
+                            <td>Utilisation de conditions de vérification (if) pour éviter que le script ne plante si une information manque. <em style="color: var(--accent-color);">(Cf. preuve : Code source Python du projet)</em></td>
                             <td>Développement de code robuste et gestion des exceptions.</td>
                         </tr>
                         <tr>
                             <td>Automatiser le passage d'un format texte à une page web valide.</td>
-                            <td>Utilisation et configuration de la bibliothèque markdown pour générer du HTML propre.</td>
+                            <td>Utilisation et configuration de la bibliothèque markdown pour générer du HTML propre. <em style="color: var(--accent-color);">(Cf. preuve : Résultat HTML — InfoLocales Caen)</em></td>
                             <td>Automatisation et conversion de formats de fichiers.</td>
                         </tr>
                     </tbody>

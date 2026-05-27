@@ -432,7 +432,9 @@ ul {
     position: relative;
     background: rgba(0,0,0,0.05);
     border: 1px solid var(--border-color);
-    min-height: 180px;
+    /* Toutes les preuves partagent le même format pour une taille identique */
+    aspect-ratio: 16 / 10;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -511,6 +513,14 @@ ul {
     flex-direction: column;
 }
 
+/* Cas d'une preuve unique : pleine largeur, mais hauteur limitée
+   (on neutralise l'aspect-ratio qui rendrait la carte trop haute) */
+.proof-item:only-child .proof-card,
+.proof-item:only-child .proof-card-empty {
+    aspect-ratio: auto;
+    height: 240px;
+}
+
 .proof-item .proof-card,
 .proof-item .proof-card-empty {
     width: 100%;
@@ -522,7 +532,15 @@ ul {
     line-height: 1.5;
     color: var(--text-secondary);
     text-align: center;
-    padding: 0 4px;
+    /* Petit cadre gris, légèrement plus foncé que le conteneur */
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+[data-theme="dark"] .proof-caption {
+    background: rgba(255, 255, 255, 0.04);
 }
 
 /* Proof card sans aperçu (placeholder) */
@@ -533,7 +551,8 @@ ul {
     background: rgba(0,0,0,0.05);
     border: 1px solid var(--border-color);
     padding: 40px;
-    min-height: 180px;
+    aspect-ratio: 16 / 10;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
