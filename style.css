@@ -511,6 +511,8 @@ ul {
     min-width: 250px;
     display: flex;
     flex-direction: column;
+    /* Chaque colonne garde sa hauteur naturelle (pas d'étirement vertical) */
+    align-self: flex-start;
 }
 
 /* Cas d'une preuve unique : pleine largeur, mais hauteur limitée
@@ -541,6 +543,12 @@ ul {
 
 [data-theme="dark"] .proof-caption {
     background: rgba(255, 255, 255, 0.04);
+}
+
+/* Quand plusieurs preuves sont côte à côte, on aligne les légendes
+   sur une hauteur commune (égale au texte le plus long) sans les sur-étirer */
+.proof-item:not(:only-child) .proof-caption {
+    min-height: 5.4em;
 }
 
 /* Proof card sans aperçu (placeholder) */
